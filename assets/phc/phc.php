@@ -23,7 +23,7 @@ class PHC_HTML{
 		wp_enqueue_script('phc',  $this->URL.'phc.js' , array('jquery'), '', true);
 	}
 	
-	function convert_color_code_to_css($code){
+	function code_to_css($code){
 		
 	}
 	
@@ -39,23 +39,30 @@ class PHC_HTML{
 			'more_text' => 'Read More',
 			'css_class' => NULL,
 			'css_id' => NULL,
+			'effect' => '1',
 			'mask_color' => 'rgba(115,146,184, 0.7)',
-			'button_color' => 't:#fff/bg:#000/b:#000',
+			'button_color' => 'c:#fff/bg:#000/b:#000',
+			'title_color' => 'c:#fff',
+			'des_color' => 'c:#fff',
 		), $atts));
 		
 		$output = NULL;
 	   
 		ob_start();
 	   	?>
-        <div class="phc_banner1">
+        <div class="phc_banner1 effect_<?php echo $effect; ?>">
         	<div class="phc_banner1_in">
             	<img src="<?php echo $image; ?>" alt="<?php echo $title; ?>">
                 <div class="phc_banner1_mask" style="background-color:<?php echo $mask_color; ?>;"></div>
                 <div class="phc_banner1_content">
-					<?php if($title): ?><h4 class="phc_banner1_title"><?php echo $title; ?></h4><?php endif; ?>
-					<?php if($des): ?><p class="phc_banner1_des"><?php echo $des; ?></p><?php endif; ?>
+					<?php if($title): ?>
+                    	<h4 class="phc_banner1_title" style=" <?php echo $this->code_to_css($title_color); ?>"><?php echo $title; ?></h4>
+					<?php endif; ?>
+					<?php if($des): ?>
+                    	<p class="phc_banner1_des" style=" <?php echo $this->code_to_css($des_color); ?>"><?php echo $des; ?></p>
+					<?php endif; ?>
                     <?php if($link): ?>
-                    	<a href="<?php echo $link; ?>" class="phc_banner1_more phc_btn" style=" <?php echo $this->convert_color_code_to_css($button_color); ?>">
+                    	<a href="<?php echo $link; ?>" class="phc_banner1_more phc_btn" style=" <?php echo $this->code_to_css($button_color); ?>">
 							<?php echo $more_text; ?>
                         </a>
 					<?php endif; ?>
